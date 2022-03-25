@@ -17,7 +17,7 @@ class calcWindow(QtWidgets.QWidget):
         super().__init__()
         self.setWindowTitle("Linear Algebra Calculator")
 
-        self.mainLayout = QtWidgets.QVBoxLayout(self)        
+        self.mainLayout = QtWidgets.QVBoxLayout(self)
         self.maxPolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
         self.matBoxPolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         # set font family and size after creating them, otherwise it doesn't work
@@ -98,10 +98,10 @@ class calcWindow(QtWidgets.QWidget):
         # (,(?! *\n) *| *\n) means
         # EITHER: match a comma (not followed by a newline)
         # OR: match any number of spaces and then a newline
-        self.v1.setValidator(self.vectorValidator)
-        self.v2.setValidator(self.vectorValidator)
-        self.m1.textChanged.connect(self.validateBoxes)
-        self.m2.textChanged.connect(self.validateBoxes)
+        # self.v1.setValidator(self.vectorValidator)
+        # self.v2.setValidator(self.vectorValidator)
+        # self.m1.textChanged.connect(self.validateBoxes)
+        # self.m2.textChanged.connect(self.validateBoxes)
 
         self.inputGrid.addWidget(self.v1l, 0, 0)
         self.inputGrid.addWidget(self.v2l, 0, 1)
@@ -157,7 +157,7 @@ class calcWindow(QtWidgets.QWidget):
         self.randSettingsGrid.addWidget(self.minRandLabel, 1, 0)
         self.randSettingsGrid.addWidget(self.minRand, 1, 1)
         self.randSettingsGrid.addWidget(self.useFractions, 2, 0, 2, 1)
-        
+
         self.randomGrid.addWidget(self.randVecBtn, 0, 0)
         self.randomGrid.addWidget(self.randMatBtn, 1, 0)
         self.randomGrid.addWidget(self.nLab, 0, 1)
@@ -194,7 +194,7 @@ class calcWindow(QtWidgets.QWidget):
         self.lowerHorzLayout.addWidget(self.toDecBtn)
         return self.lowerHorzLayout
 
-    
+
     def validateBoxes(self):
         boxes = [self.m1, self.m2]
         for b in boxes:
@@ -207,10 +207,10 @@ class calcWindow(QtWidgets.QWidget):
     def dropdownEvent(self, drop_index):
         print('dropdown changed')
         print('current selection is', self.cb.currentText(), 'at index', drop_index)
-    
+
     def clearText(self):
         print('clear text')
-    
+
     def calculate(self):
         print('calculate')
 
@@ -225,7 +225,7 @@ class calcWindow(QtWidgets.QWidget):
 
     def toFraction(self):
         print('convert to fraction')
-    
+
     def toDecimal(self):
         print('convert to decimal')
 

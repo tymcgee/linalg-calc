@@ -55,18 +55,17 @@ class MainWindow(qt_window.calcWindow):
         }
         self.cb.addItems([*[key for key in self.FUNCS]])
 
-
     def dropdownEvent(self, drop_index):
         active = self.FUNCS[self.cb.currentText()].active_boxes
         boxes = [self.v1, self.v2, self.m1, self.m2]
         for i in range(4):
             boxes[i].setEnabled(active[i])
         self.active_boxes = active
-    
+
     def clearText(self):
         for t in self.textBoxes:
             t.clear()
-    
+
     def calculate(self):
         # things to check:
         # provided vectors are vectors (maybe not necessary with validators)
@@ -105,7 +104,7 @@ class MainWindow(qt_window.calcWindow):
             else:
                 errored = True
                 error_msg += a
-        
+
         elif active_items == [1, 0, 1, 0]:
             if not isinstance((a := matvec_valid(v1, m1, current_op)), str):
                 result = f(v1, m1)
@@ -119,7 +118,7 @@ class MainWindow(qt_window.calcWindow):
             else:
                 errored = True
                 error_msg += "The input (v1) is not a vector."
-        
+
         elif active_items == [0, 0, 1, 0]:
             if not isinstance((a := mat_valid(m1, current_op)), str):
                 if f == qr:
@@ -134,24 +133,24 @@ class MainWindow(qt_window.calcWindow):
             else:
                 errored = True
                 error_msg += a
-        
+
         elif active_items == [0, 0, 1, 1]:
             if not isinstance((a := valid_mats(m1, m2)), str):
                 result = f(m1, m2)
             else:
                 errored = True
                 error_msg += a
-        
+
         else:
             # error
             print('something went wrong.')
             return
-        
+
         if errored:
             self.errorDialog.setInformativeText(error_msg)
             self.errorDialog.exec()
             return
-        
+
         msg = current_func.text
         msg += format_answer(result)
         self.resultBox.clear()
@@ -162,11 +161,12 @@ class MainWindow(qt_window.calcWindow):
         m = self.mSpin.value()
         r_max = self.maxRand.value()
         r_min = self.minRand.value()
-        
+
         final_string = ''
         for row in range(m):
             if self.useFractions.isChecked():
-                final_string += str(Fraction(random.randint(r_min, r_max), random.randint(max(1, r_min), r_max)))
+                final_string += str(Fraction(random.randint(r_min, r_max),
+                                    random.randint(max(1, r_min), r_max)))
             else:
                 final_string += str(random.randint(r_min, r_max))
             final_string += ', '
@@ -180,12 +180,13 @@ class MainWindow(qt_window.calcWindow):
         n = self.nSpin.value()
         r_max = self.maxRand.value()
         r_min = self.minRand.value()
-        
+
         final_string = ''
         for row in range(m):
             for col in range(n):
                 if self.useFractions.isChecked():
-                    final_string += str(Fraction(random.randint(r_min, r_max), random.randint(max(1, r_min), r_max)))
+                    final_string += str(Fraction(random.randint(r_min, r_max),
+                                        random.randint(max(1, r_min), r_max)))
                 else:
                     final_string += str(random.randint(r_min, r_max))
                 final_string += ', '
@@ -199,7 +200,8 @@ class MainWindow(qt_window.calcWindow):
     def copyResult(self):
         if self.FUNCS[self.cb.currentText()].func == qr:
             # not supported
-            self.errorDialog.setInformativeText("You cannot copy the result when it contains more than one matrix or vector.")
+            self.errorDialog.setInformativeText(
+                "You cannot copy the result when it contains more than one matrix or vector.")
             self.errorDialog.exec()
             return
         txt = get_csv(self.currentResult)
@@ -207,7 +209,8 @@ class MainWindow(qt_window.calcWindow):
 
     def toFraction(self):
         if self.FUNCS[self.cb.currentText()].func == qr:
-            self.errorDialog.setInformativeText("You cannot do that to a result with more than one matrix or vector.")
+            self.errorDialog.setInformativeText(
+                "You cannot do that to a result with more than one matrix or vector.")
             self.errorDialog.exec()
             return
         if isinstance(self.currentResult, (list, np.ndarray)):
@@ -215,11 +218,13 @@ class MainWindow(qt_window.calcWindow):
                 # current result is a matrix
                 row_size = len(self.currentResult)
                 col_size = len(self.currentResult[0])
-                result = [[dec_to_frac_approx(self.currentResult[i][j]) for j in range(col_size)] for i in range(row_size)]
+                result = [[dec_to_frac_approx(self.currentResult[i][j]) for j in range(
+                    col_size)] for i in range(row_size)]
             else:
                 # current result is a vector
                 size = len(self.currentResult)
-                result = [dec_to_frac_approx(self.currentResult[i]) for i in range(size)]
+                result = [dec_to_frac_approx(
+                    self.currentResult[i]) for i in range(size)]
         else:
             # current result is a scalar
             result = dec_to_frac_approx(self.currentResult)
@@ -227,10 +232,11 @@ class MainWindow(qt_window.calcWindow):
         msg = self.FUNCS[self.cb.currentText()].text
         self.resultBox.clear()
         self.resultBox.insertPlainText(msg + format_answer(result))
-    
+
     def toDecimal(self):
         if self.FUNCS[self.cb.currentText()].func == qr:
-            self.errorDialog.setInformativeText("You cannot do that to a result with more than one matrix or vector.")
+            self.errorDialog.setInformativeText(
+                "You cannot do that to a result with more than one matrix or vector.")
             self.errorDialog.exec()
             return
         if isinstance(self.currentResult, (list, np.ndarray)):
@@ -238,11 +244,13 @@ class MainWindow(qt_window.calcWindow):
                 # current result is a matrix
                 row_size = len(self.currentResult)
                 col_size = len(self.currentResult[0])
-                result = [[Fraction(float(self.currentResult[i][j])) for j in range(col_size)] for i in range(row_size)]
+                result = [[Fraction(float(self.currentResult[i][j]))
+                           for j in range(col_size)] for i in range(row_size)]
             else:
                 # current result is a vector
                 size = len(self.currentResult)
-                result = [Fraction(float(self.currentResult[i])) for i in range(size)]
+                result = [Fraction(float(self.currentResult[i]))
+                          for i in range(size)]
         else:
             # current result is a scalar
             result = Fraction(float(self.currentResult))
@@ -258,8 +266,6 @@ class MainWindow(qt_window.calcWindow):
     def minRandValueChanged(self, v):
         if self.maxRand.value() < self.minRand.value():
             self.minRand.setValue(self.maxRand.value())
-
-
 
 
 if __name__ == '__main__':
