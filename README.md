@@ -2,7 +2,7 @@
 A calculator for various linear algebra-related operations.
 
 # Example
-![Example Image](demo1.png)
+![demo1](https://user-images.githubusercontent.com/99392600/170610019-a4cbe514-2ad6-4f71-b93e-a515cc3c270f.png)
 
 # Notes
 In creating this calculator I learned a lot:
