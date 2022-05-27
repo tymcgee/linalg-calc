@@ -4,7 +4,7 @@ A calculator for various linear algebra-related operations.
 # Example
 ![Example Image](demo1.png)
 
-# What I Learned
+# Notes
 In creating this calculator I learned a lot:
 - How to use both the `tk` and `qt` graphical libraries in python
 - How to do symbolic math with fractions, and in doing so learned more about creating and using classes
