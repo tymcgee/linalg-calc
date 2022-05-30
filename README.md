@@ -16,6 +16,7 @@ I don't know exactly when I'll consider this project _fully_ done.. every once i
 
 Some things I might be inclined to add or change:
 - Implement QR factorization via Householder Reflectors for better numerical stability
+- Implement LU decomposition as a method for solving linear systems
 - Make the entire calculation section of the code more conducive to adding a new function, as well as making multiple outputs easier to handle
 - Learn more about symbolic implementations of things like square roots and imaginary numbers and combine all of them together to make it almost entirely symbolic
 - Different kinds of matrix inputs might be easier to work with, maybe taking inspiration from other math computation languages or defining matrix size beforehand and then providing individual boxes
